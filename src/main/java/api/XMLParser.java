@@ -11,20 +11,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class XMLParser {
 
-    public Student getStudentById(List<Student> students, String id) {
-        Student student = new Student();
-
-        for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getStudentId().equals(id)) {
-                student = students.get(i);
-            }
-        }
-        return student;
-    }
 
     public List<Student> readStudents(String xmlPath) throws ParserConfigurationException, IOException, SAXException { /* parsing the Students.xml file*/
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -44,8 +35,13 @@ public class XMLParser {
 
                 String name = (firstStudentElement.getAttribute("name"));
                 String id = (firstStudentElement.getAttribute("id"));
-
-                Student stud = new Student(name, id);
+                List<String> subjects = new ArrayList<>();
+                String[] subjectArray = firstStudentElement.getAttribute("subjects").split(",");
+                for(String s : subjectArray) {
+                    subjects.add(s);
+                    System.out.println(s);
+                }
+                Student stud = new Student(name, id, subjects);
                 result.add(stud);
             }
         }
@@ -110,10 +106,10 @@ public class XMLParser {
                 }
                 System.out.println(prerequisites);
                 if (prerequisites.size() == 0) {
-                    BscSubject bscSubject = new BscSubject(name, credit, id, students, teacher, time);
+                    Subject bscSubject = new BscSubject(name, credit, id, students, teacher, time);
                     result.add(bscSubject);
                 } else {
-                    MscSubject mscSubject = new MscSubject(name, credit, id, students, teacher, time, prerequisites);
+                    Subject mscSubject = new MscSubject(name, credit, id, teacher, students, time, prerequisites);
                     result.add(mscSubject);
                 }
             }

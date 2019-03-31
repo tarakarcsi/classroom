@@ -1,20 +1,33 @@
 package api;
 
+import exceptions.MissingPrerequisiteException;
 import exceptions.NoSuchSubjectException;
 import exceptions.StudentAlreadySubscribedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Subject {
 
-    protected String name;
-    protected String subjectId;
-    protected List<String> students;
-    protected String credit;
-    protected String teacher;
-    protected String time;
-    protected List<String> prerequisites;
-    protected Classroom classroom;
+    String name;
+    String subjectId;
+    List<String> students;
+    String credit;
+    String teacher;
+    String time;
+
+
+    public Subject(String name, String subjectId, String credit, String teacher, String time) {
+        this.name = name;
+        this.subjectId = subjectId;
+        this.students = new ArrayList<>();
+        this.credit = credit;
+        this.teacher = teacher;
+        this.time = time;
+    }
+
+    public Subject() {
+    }
 
     public List<String> getStudents() {
         return students;
@@ -24,10 +37,22 @@ public abstract class Subject {
         return subjectId;
     }
 
-    public List<String> getPrerequisites() {
-        return prerequisites;
+    public String getName() {
+        return name;
     }
 
-    public abstract void subscribe(String studentId, String subjectId) throws NoSuchSubjectException, StudentAlreadySubscribedException;
+    public String getCredit() {
+        return credit;
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public abstract void subscribe(Student student) throws NoSuchSubjectException, StudentAlreadySubscribedException, MissingPrerequisiteException;
 
 }

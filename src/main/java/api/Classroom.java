@@ -18,27 +18,10 @@ public class Classroom {
 
     private List<Student> students;
     private List<Subject> subjects;
-    private XMLParser xmlP = new XMLParser();
 
     public Classroom(List<Student> students, List<Subject> subjects) {
-        try {
-            this.students = xmlP.readStudents("src/main/java/api/Students.xml");
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.subjects = xmlP.getSubjects("src/main/java/api/Subjects.xml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+            this.students = students;
+            this.subjects = subjects;
     }
 
     public List<Student> getStudents() {
@@ -55,7 +38,7 @@ public class Classroom {
                 throw new SubjectAlreadyExistsException("This subject already exists.");
             }
         }
-        subjects.add(new BscSubject(name, credit, id, null, teacher, time));
+        subjects.add(new BscSubject(name, credit, id, new ArrayList<String>(), teacher, time));
     }
 
     public void addMscSubject(String name, String id, String credit, String teacher, String time, List<String> prerequisites) throws SubjectAlreadyExistsException {
@@ -64,7 +47,7 @@ public class Classroom {
                 throw new SubjectAlreadyExistsException("This subject already exists+");
             }
         }
-        subjects.add(new MscSubject(name, credit, id, null, teacher, time, prerequisites));
+        subjects.add(new MscSubject(name, credit, id,teacher, new ArrayList<String>(), time, prerequisites));
     }
 
 
@@ -83,7 +66,7 @@ public class Classroom {
                 throw new IdAlreadyTakenException("This student ID is already booked.");
             }
         }
-        students.add(new Student(name, id));
+        students.add(new Student(name, id, new ArrayList<>()));
     }
 
     public void removeStudent(String id) {
@@ -95,29 +78,6 @@ public class Classroom {
         students.removeAll(toRemove);
     }
 
-    public List<String> getStudentsbySubject(String subjectId, String xmlPath) throws ParserConfigurationException, SAXException, IOException { //Lists the subscribed students' names for a subject (id given by user)
-        List<String> studentsBySubject = new ArrayList<>();
-
-        for (int i = 0; i < xmlP.getSubjects(xmlPath).size(); i++) {
-            if (xmlP.getSubjects(xmlPath).get(i).getSubjectId().equals(subjectId)) {
-                for (String id : xmlP.getSubjects(xmlPath).get(i).getStudents()) {
-                    studentsBySubject.add(id);
-                }
-            }
-        }
-        return studentsBySubject;
-    }
-
-    public Subject checkSubject(String subjectId) throws NoSuchSubjectException {
-        Subject tempSubject;
-        for (int i = 0; i < subjects.size(); i++) {
-            if (subjects.get(i).getSubjectId().equals(subjectId)) {
-                tempSubject = subjects.get(i);
-                return tempSubject;
-            }
-        }
-        throw new NoSuchSubjectException("No such subject!");
-    }
     public boolean isStudentSubscribed(String studentId, Subject subject) throws StudentAlreadySubscribedException {
         for (int i = 0; i < subject.getStudents().size(); i++) {
             if (subject.getStudents().get(i).equals(studentId)) {

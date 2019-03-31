@@ -1,34 +1,72 @@
 package api;
 
+import exceptions.MissingPrerequisiteException;
 import exceptions.NoSuchSubjectException;
 import exceptions.StudentAlreadySubscribedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MscSubject extends Subject {
 
+    String name;
+    String subjectId;
+    List<String> students;
+    String credit;
+    String teacher;
+    String time;
     private List<String> prerequisites;
-    private Classroom classroom;
 
-    public MscSubject(String name, String credit, String subjectId, List<String> students, String teacher, String lessonTime, List<String> prerequisites) {
-        this.name = name;
-        this.subjectId = subjectId;
-        this.credit = credit;
+    public MscSubject(String name, String credit, String subjectId, String teacher,List<String> students, String lessonTime, List<String> prerequisites) {
+        super(name, subjectId, credit, teacher, lessonTime);
         this.students = students;
-        this.teacher = teacher;
         this.prerequisites = prerequisites;
-    }
-    public MscSubject () {
-
     }
 
     @Override
-    public void subscribe(String studentId, String subjectId) throws NoSuchSubjectException, StudentAlreadySubscribedException {
+    public String getName() {
+        return name;
+    }
 
-        Subject tempSubject = classroom.checkSubject(subjectId);
-        if (!classroom.isStudentSubscribed(studentId, tempSubject) && hasPreRequisites(this.prerequisites, studentId)) {
-            tempSubject.getStudents().add(studentId);
-        }
+    @Override
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    @Override
+    public List<String> getStudents() {
+        return students;
+    }
+
+    @Override
+    public String getCredit() {
+        return credit;
+    }
+
+    @Override
+    public String getTeacher() {
+        return teacher;
+    }
+
+    @Override
+    public String getTime() {
+        return time;
+    }
+
+    public List<String> getPrerequisites() {
+        return prerequisites;
+    }
+
+    @Override
+    public void subscribe(Student student) throws StudentAlreadySubscribedException, MissingPrerequisiteException {
+
+        if (students.contains(student.getStudentId())) {
+            throw new StudentAlreadySubscribedException("student already subscribed!");
+        } else if (hasPreRequisites(student)) {
+            student.addSubject(this);
+            students.add(student.getStudentId());
+        } else
+            throw new MissingPrerequisiteException("Missing prerequisite!");
     }
 
     @Override
@@ -37,15 +75,11 @@ public class MscSubject extends Subject {
     }
 
 
-    public boolean hasPreRequisites(List<String> prerequisiteList, String studentId){
-        Subject tempSubject;
-        for(int i = 0; i < prerequisiteList.size(); i++) {
-            for (int j = 0; j < classroom.getSubjects().size(); j++) {
-                if (classroom.getSubjects().get(j).subjectId.equals(prerequisiteList.get(i))) {
-                    tempSubject = classroom.getSubjects().get(j);
-                    if(tempSubject.getStudents().contains(studentId)) {
-                        return true;
-                    }
+    public boolean hasPreRequisites(Student student) {
+        for (String subject : prerequisites) {
+            for (String studentSubject : student.getSubjectList()) {
+                if (studentSubject.equals(subject)) {
+                    return true;
                 }
             }
         }

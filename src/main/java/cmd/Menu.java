@@ -1,11 +1,7 @@
 package cmd;
 
 import api.*;
-import exceptions.IdAlreadyTakenException;
-import exceptions.NoSuchSubjectException;
-import exceptions.StudentAlreadySubscribedException;
-import exceptions.SubjectAlreadyExistsException;
-import jdk.swing.interop.SwingInterOpUtils;
+import exceptions.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,10 +15,14 @@ public class Menu {
     private Scanner scanner = new Scanner(System.in);
     private XMLParser xmlP = new XMLParser();
     private Classroom classroom;
-    BscSubject bsc = new BscSubject();
-    MscSubject msc = new MscSubject();
 
-    {
+
+
+
+    public Menu() throws IOException, SAXException, ParserConfigurationException {
+    }
+
+    public void start() throws IOException, SAXException, ParserConfigurationException, IdAlreadyTakenException, NoSuchSubjectException, StudentAlreadySubscribedException {
         try {
             classroom = new Classroom(xmlP.readStudents("src/main/java/api/Students.xml"), xmlP.getSubjects("src/main/java/api/Subjects.xml"));
         } catch (ParserConfigurationException e) {
@@ -32,12 +32,6 @@ public class Menu {
         } catch (SAXException e) {
             e.printStackTrace();
         }
-    }
-
-    public Menu() throws IOException, SAXException, ParserConfigurationException {
-    }
-
-    public void start() throws IOException, SAXException, ParserConfigurationException, IdAlreadyTakenException, NoSuchSubjectException, StudentAlreadySubscribedException {
         int menuOption;
         do {
             while (true) {
@@ -68,10 +62,10 @@ public class Menu {
                     System.out.println("Is this subject Bsc or Msc?");
                     String isBsc = scanner.nextLine();
                     try {
-                        if(isBsc.equals("bsc")) {
+                        if (isBsc.equals("bsc")) {
                             System.out.println("Please enter the subject's attributes(name/id/credit/teacher/lessontime) :");
                             classroom.addBscSubject(scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), scanner.nextLine());
-                        }else if(isBsc.equals("msc")) {
+                        } else if (isBsc.equals("msc")) {
                             System.out.println("Please enter how many prerequisites this subject has: ");
                             int amount = Integer.parseInt(scanner.nextLine());
                             System.out.println("Please enter the subject's attributes(name/id/credit/teacher/lessontime/prerequisites) :");
@@ -89,7 +83,7 @@ public class Menu {
                     System.out.println("Please enter the student's attributes (name, id): ");
                     try {
                         classroom.addStudent(scanner.nextLine(), scanner.nextLine());
-                    } catch(IdAlreadyTakenException ie) {
+                    } catch (IdAlreadyTakenException ie) {
                         System.out.println(ie.getMessage());
                     }
                     break;
@@ -99,25 +93,23 @@ public class Menu {
                     break;
                 case 6:
                     System.out.println("Please enter a subject ID");
-                    System.out.println(classroom.getStudentsbySubject(scanner.nextLine(), "src/api/Subjects.xml"));
+                    Subject tempSubject = checkSubject(scanner.nextLine(), classroom.getSubjects());
+                    getStudentBySubject(tempSubject);
                     break;
                 case 7:
                     System.out.println("Please enter the subject and student to subscribe: ");
                     String subj = scanner.nextLine();
                     String stud = scanner.nextLine();
-                    Subject tempSubject = null;
-                    for(int i = 0; i < classroom.getSubjects().size(); i++) {
-                        if(classroom.getSubjects().get(i).getSubjectId().equals(subj)) {
-                            tempSubject = classroom.getSubjects().get(i);
+                    Subject temporarySubject = checkSubject(subj, classroom.getSubjects());
+                    Student tempStudent = findStudent(stud);
+                    if(tempStudent != null) {
+                        try {
+                            temporarySubject.subscribe(findStudent(stud));
+                        } catch (MissingPrerequisiteException e) {
+                            System.out.println(e.getMessage());
                         }
-                        if(tempSubject instanceof BscSubject) {
-                            bsc.subscribe(stud, subj);
-                        }else if(tempSubject instanceof MscSubject) {
-                            msc.subscribe(stud, subj);
-                        }
-                    }
-
-                    break;
+                    }else
+                        System.out.println("No student found!");
             }
         }
         while (menuOption != 0);
@@ -134,8 +126,12 @@ public class Menu {
 
     public List<String> getPrerequisites(int amount) {
         List<String> prerequisiteList = new ArrayList<>();
-        for(int i = 0; i < amount; i++) {
-            prerequisiteList.add(scanner.nextLine());
+        for (int i = 0; i < amount; i++) {
+            try {
+                prerequisiteList.add(checkSubject(scanner.nextLine(), classroom.getSubjects()).getSubjectId());
+            } catch (NoSuchSubjectException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return prerequisiteList;
     }
@@ -144,5 +140,32 @@ public class Menu {
         String input = scanner.nextLine();
         System.out.println();
         return input;
+    }
+
+    public void getStudentBySubject(Subject subject) {
+
+        for (String student : subject.getStudents()) {
+            System.out.println(student);
+        }
+    }
+
+    public Subject checkSubject(String subjectId, List<Subject> subjects) throws NoSuchSubjectException {
+        Subject tempSubject;
+        for (int i = 0; i < subjects.size(); i++) {
+            if (subjects.get(i).getSubjectId().equals(subjectId)) {
+                tempSubject = subjects.get(i);
+                return tempSubject;
+            }
+        }
+        throw new NoSuchSubjectException("No such subject!");
+    }
+
+    private Student findStudent(String studentId) {
+
+        for (Student student : classroom.getStudents()) {
+            if (student.getStudentId().equals(studentId))
+                return student;
+        }
+        return null;
     }
 }
