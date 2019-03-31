@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Subjects>
+    <Subject>
+        <name>Mathematical Analysis I</name>
+        <id>GEMAK314-B</id>
+        <teacher>Tuzson Ágnes</teacher>
+        <time>Mon 9 am</time>
+        <credit>5</credit>
+        <studentIds>
+            <studentId>S84SEA</studentId>
+            <studentId>ZEL84N</studentId>
+            <studentId>HUF6VK</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Computer Architectures</name>
+        <id>GEIAL301B</id>
+        <teacher>Kovács Szilverter</teacher>
+        <time>Mon 12 am</time>
+        <credit>5</credit>
+        <studentIds>
+            <studentId>LE83NF</studentId>
+            <studentId>UT8RLR</studentId>
+            <studentId>NM65HF</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Programming Basics</name>
+        <id>GEIAL316B</id>
+        <teacher>Baksáné Varga Erika</teacher>
+        <time>Mon 12 am</time>
+        <credit>5</credit>
+        <studentIds>
+            <studentId>UTF8B6</studentId>
+            <studentId>TNRM12</studentId>
+            <studentId>HUF6VK</studentId>
+            <studentId>EDXK4L</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Software Technology</name>
+        <id>GEIAL314B</id>
+        <teacher>Mileff Péter</teacher>
+        <time>Tue 10 am</time>
+        <credit>4</credit>
+        <studentIds>
+            <studentId>UTF8B6</studentId>
+            <studentId>TNRM12</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite>GEIAL316B</prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Operating Systems</name>
+        <id>GEIAL302B</id>
+        <teacher>GOD</teacher>
+        <time>Wed 8 am</time>
+        <credit>1000</credit>
+        <studentIds>
+            <studentId>HFDEKF</studentId>
+            <studentId>EDXK4L</studentId>
+            <studentId>S84SEA</studentId>
+            <studentId>HUF6VK</studentId>
+            <studentId>ZEL84N</studentId>
+            <studentId>LE83NF</studentId>
+            <studentId>UT8RLR</studentId>
+            <studentId>NM65HF</studentId>
+            <studentId>UTF8B6</studentId>
+            <studentId>TNRM12</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite>GEIAL316B</prerequisite>
+            <prerequisite>GEIAL301B</prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Comprehensive Exam in Mathematics</name>
+        <id>GEMAN138B</id>
+        <teacher>Homolya Szilvia</teacher>
+        <time>Fri 10 am</time>
+        <credit>0</credit>
+        <studentIds>
+            <studentId>EDXK4L</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite>GEMAK314-B</prerequisite>
+            <prerequisite>GEMAN122B</prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Information Systems Development</name>
+        <id>GEIAL314-B</id>
+        <teacher>Nehéz Károly</teacher>
+        <time>Thu 8 am</time>
+        <credit>3</credit>
+        <studentIds>
+            <studentId>HFDEKF</studentId>
+            <studentId>LE83NF</studentId>
+            <studentId>UTF8B6</studentId>
+            <studentId>TNRM12</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>XML Data Management</name>
+        <id>GEIAL332B</id>
+        <teacher>Kovács László</teacher>
+        <time>Thu 10 am</time>
+        <credit>3</credit>
+        <studentIds>
+            <studentId>ZEL84N</studentId>
+            <studentId>EDXK4L</studentId>
+            <studentId>LE83NF</studentId>
+            <studentId>HFDEKF</studentId>
+            <studentId>S84SEA</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Web Technologies I</name>
+        <id>GEIAL331B</id>
+        <teacher>Tóth Zsolt</teacher>
+        <time>Thu 4 pm</time>
+        <credit>5</credit>
+        <studentIds>
+            <studentId>S84SEA</studentId>
+            <studentId>NM65HF</studentId>
+            <studentId>EDXK4L</studentId>
+            <studentId>ZEL84N</studentId>
+            <studentId>TNRM12</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Numerical Analysis</name>
+        <id>GEMAK141B</id>
+        <teacher>Körei Attila</teacher>
+        <time>Thu 12</time>
+        <credit>4</credit>
+        <studentIds>
+            <studentId>TNRM12</studentId>
+            <studentId>NM65HF</studentId>
+            <studentId>HUF6VK</studentId>
+            <studentId>EDXK4L</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite>GEMAK314-B</prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>History of Physics</name>
+        <id>GEFIT555</id>
+        <teacher>Paripás Béla</teacher>
+        <time>Wed 2 pm</time>
+        <credit>2</credit>
+        <studentIds>
+            <studentId>HFDEKF</studentId>
+            <studentId>LE83NF</studentId>
+            <studentId>TNRM12</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Discrete Mathematics</name>
+        <id>GEMAN122B</id>
+        <teacher>Radeleczki Tibor</teacher>
+        <time>Thu 1 pm</time>
+        <credit>5</credit>
+        <studentIds>
+            <studentId>HFDEKF</studentId>
+            <studentId>TNRM12</studentId>
+            <studentId>S84SEA</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite></prerequisite>
+        </prerequisites>
+    </Subject>
+    <Subject>
+        <name>Web Technologies II</name>
+        <id>GEMAN138B</id>
+        <teacher>Tóth Zsolt</teacher>
+        <time>Fri 10 am</time>
+        <credit>5</credit>
+        <studentIds>
+            <studentId>NM65HF</studentId>
+            <studentId>LE83NF</studentId>
+            <studentId>UTF8B6</studentId>
+            <studentId>ZEL84N</studentId>
+        </studentIds>
+        <prerequisites>
+            <prerequisite>GEIAL331B</prerequisite>
+        </prerequisites>
+    </Subject>
+</Subjects>

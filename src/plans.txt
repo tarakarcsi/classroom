@@ -1,0 +1,21 @@
+diák hozzáadása ( ne lehessen több diáknak ugyanaz a neptun kódja )
+tárgy hozzáadása / kivételek nem hard code-olva ( inputtal )  + feliratkozás subject-re (menu option)
+
+requirement email !!
+
+
+- BSC ÉS MSC TÁRGYAK
+- MINDEN DIÁK FEL TUD IRATKOZNI BSC-S TÁRGYRA, DE MSC-SRE CSAK MSC-S DIÁKOK
+
+abstract subject osztály
+bsc subject, msc subject classes
+subjectekre fel és leiratkozás (abstract metódusok)
+a bsc és msc-ben overrideolni ezeket a mtodusokat
+
+subscribe(student student)
+bsc: mindenki felveheti, kivéve ha már fel van véve
+msc:
+uj subject létrehozásánál: bsc: létrehozás simán
+mscnél: létrehozásnál : neve + adatok + hány db előfeltétele van + input előfeltétel tárgykód
+
+mscSubject osztályban egy előfeltétel tárgyak field
