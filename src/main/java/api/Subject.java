@@ -17,10 +17,10 @@ public abstract class Subject {
     String time;
 
 
-    public Subject(String name, String subjectId, String credit, String teacher, String time) {
+    public Subject(String name, String subjectId, String credit,List<String> students, String teacher, String time) {
         this.name = name;
         this.subjectId = subjectId;
-        this.students = new ArrayList<>();
+        this.students = students;
         this.credit = credit;
         this.teacher = teacher;
         this.time = time;

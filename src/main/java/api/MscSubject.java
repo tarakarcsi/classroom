@@ -9,17 +9,10 @@ import java.util.List;
 
 public class MscSubject extends Subject {
 
-    String name;
-    String subjectId;
-    List<String> students;
-    String credit;
-    String teacher;
-    String time;
     private List<String> prerequisites;
 
-    public MscSubject(String name, String credit, String subjectId, String teacher,List<String> students, String lessonTime, List<String> prerequisites) {
-        super(name, subjectId, credit, teacher, lessonTime);
-        this.students = students;
+    public MscSubject(String name, String subjectId, String credit, List<String> students, String teacher, String time, List<String> prerequisites) {
+        super(name, subjectId, credit, students, teacher, time);
         this.prerequisites = prerequisites;
     }
 

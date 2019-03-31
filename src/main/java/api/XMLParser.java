@@ -106,10 +106,10 @@ public class XMLParser {
                 }
                 System.out.println(prerequisites);
                 if (prerequisites.size() == 0) {
-                    Subject bscSubject = new BscSubject(name, credit, id, students, teacher, time);
+                    Subject bscSubject = new BscSubject(name, id, credit, students, teacher, time);
                     result.add(bscSubject);
                 } else {
-                    Subject mscSubject = new MscSubject(name, credit, id, teacher, students, time, prerequisites);
+                    Subject mscSubject = new MscSubject(name, id, credit, students, teacher, time, prerequisites);
                     result.add(mscSubject);
                 }
             }

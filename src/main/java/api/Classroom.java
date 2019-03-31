@@ -47,7 +47,7 @@ public class Classroom {
                 throw new SubjectAlreadyExistsException("This subject already exists+");
             }
         }
-        subjects.add(new MscSubject(name, credit, id,teacher, new ArrayList<String>(), time, prerequisites));
+        subjects.add(new MscSubject(name, credit, id, new ArrayList<String>(), teacher,time, prerequisites));
     }
 
 
